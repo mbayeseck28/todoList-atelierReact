@@ -106,11 +106,7 @@ class Affichage extends React.Component {
   };
   handleDelete = (id) => {
     const newList = this.state.list.filter(li => li.id !== id)
-    // console.log(newList);
     this.setState({list: newList })
-    // const listCopie = this.state.list.slice()
-    // const listSup = listCopie.filter(li => li.id !== id)
-    // this.setState(listSup)
   }
   handleUpdate = (id) => {
     const listSelect = this.state.list.filter((li) => li.id == id)
@@ -122,16 +118,13 @@ class Affichage extends React.Component {
       })
       // console.log(li.nom);
     })
-    // const listUpdate = list.find((li) => li.id === id);
-    // if (listUpdate) {
-    //   this.setState({ valeure: listUpdate.nom, id: id });
-    // }
+
   };
 
   render() {
     return (
       <div className="flex justify-center bg-white dark:bg-slate-800 min-h-screen px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
-        <div className="w-[50%]">
+        <div className="w-[100%]">
           <h1 className="text-3xl font-bold text-white text-center mb-4">
             Todo List React
           </h1>
