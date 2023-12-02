@@ -85,6 +85,7 @@ class Affichage extends React.Component {
       list: [],
       couleur: 'vert',
       fonction: 'Ajouter',
+      cleAmodifier:''
     };
   }
   handleChange = (e) => {
@@ -104,6 +105,29 @@ class Affichage extends React.Component {
       }))
     }
   };
+  handleSubmitModif = (e) => {
+    e.preventDefault();
+    
+    const listeAmodifier = this.state.list.map((li) => {
+      if (li.id === this.state.cleAmodifier) {
+        return { ...li, nom: this.state.valeure }; 
+      }
+      return li;
+    });
+  
+    this.setState({
+      list: listeAmodifier,
+      couleur: "vert",
+      fonction: "Ajouter",
+      valeure: ''
+    });
+  };
+  
+  ConditionHandleSubmit = (e) =>{
+    const condition = this.state.fonction == "Ajouter"
+
+    condition ? this.handleSubmit(e) : this.handleSubmitModif(e);
+  }
   handleDelete = (id) => {
     const newList = this.state.list.filter(li => li.id !== id)
     this.setState({list: newList })
@@ -112,11 +136,11 @@ class Affichage extends React.Component {
     const listSelect = this.state.list.filter((li) => li.id == id)
     listSelect.map((li) => {
       this.setState({
+        cleAmodifier: li.id,
         valeure: li.nom,
         couleur: "orange",
         fonction: "Modifier"
       })
-      // console.log(li.nom);
     })
 
   };
@@ -128,7 +152,7 @@ class Affichage extends React.Component {
           <h1 className="text-3xl font-bold text-white text-center mb-4">
             Todo List React
           </h1>
-            <Formulaire handleSubmit={this.handleSubmit} handleChange={this.handleChange} valeure={this.state.valeure} id={this.state.couleur} text={this.state.fonction}/>
+            <Formulaire handleSubmit={this.ConditionHandleSubmit} handleChange={this.handleChange} valeure={this.state.valeure} id={this.state.couleur} text={this.state.fonction}/>
             <Todo handleDelete={this.handleDelete} handleUpdate={this.handleUpdate} list={this.state.list}/>
         </div>
       </div>
